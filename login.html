@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login e Registro</title>
+    <link rel="stylesheet" href="/home/styles/styleslogin.css">
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+</head>
+<body>
+    <div> <img id="logo" src="/home/img/logologin.png" class="logo" width="500">
+    <div class="container">
+        <div id="login-container" class="auth-container">
+            <h1>Login</h1>
+            <input type="email" id="login-email" placeholder="Email">
+            <input type="password" id="login-password" placeholder="Password">
+            <button onclick="loginWithEmail()">Login</button>
+            <button onclick="loginWithGoogle()">Login com Google</button>
+            <p>Não tem uma conta? <a href="#" onclick="showRegister()">Registrar</a></p>
+        </div>
+        <div id="register-container" class="auth-container" style="display:none;">
+            <h1>Registrar</h1>
+            <input type="email" id="register-email" placeholder="Email">
+            <input type="password" id="register-password" placeholder="Password">
+            <button onclick="registerWithEmail()">Registrar</button>
+            <p>Já tem uma conta? <a href="#" onclick="showLogin()">Login</a></p>
+        </div>
+    </div>
+    <script>
+        // Verifica se o usuário já está autenticado ao carregar a página de login
+        checkAuth();
+    </script>
+    <script src="/home/script/scriptlogin.js"></script>
+</body>
+</html>
