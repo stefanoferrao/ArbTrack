@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <title>Arb Track</title>
-  <link rel="stylesheet" href="/home/styles/stylesdb.css">
+  <title>ArbTrack</title>
+  <link rel="stylesheet" href="assets/styles/stylesdb.css">
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-  <script src="/home/script/scriptlogin.js"></script>
+  <script src="assets/scripts/scriptlogin.js"></script>
 </head>
 <div class="tabs">
     <button class="tablink" onclick="openTab(event, 'dashboard')">Dashboard</button>
@@ -110,8 +110,7 @@
     <!-- Conteúdo do sidebar -->
     <br>
     <br>
-    <disconnect onclick="logout()">Desconnectar</disconnect><p><p><p></p>
-    <select id="selectedHouse">
+      <select id="selectedHouse">
       <option value="">Selecione uma casa</option>
       <!-- Opções das casas serão adicionadas dinamicamente via JavaScript -->
     </select>
@@ -120,14 +119,14 @@
     <p>
       <input class="depositsaque" type="number" id="withdrawAmount" placeholder="Valor do Saque">
       <button onclick="withdraw()">Sacar</button>
-  </div>
+      <disconnect onclick="logout()">Desconectar</disconnect><p><p><p></p>  </div>
   <!-- Botão para ocultar o sidebar -->
   <button id="hideSidebarButton" onclick="toggleSidebar()">
-    <img id="icon" src="/home/img/money-bag.png" class="icon" width="20" height="20" style="filter: invert(100%);">
+    <img id="icon" src="assets/images/money-bag.png" class="icon" width="20" height="20" style="filter: invert(100%);">
     <i id="sidebarIcon" style="font-size: 24px;"></i>
   </button>
   <!-- Botão para exibir o sidebar (visível quando o sidebar está oculto) -->
-  <script src="/home/script/scriptdb.js"></script>
+  <script src="assets/scripts/scriptdb.js"></script>
   <script>
 checkAuth();
 </script>
