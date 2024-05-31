@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <title>Arb Track</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBsUa6wHxcaTD88zGMYsMzGaFGEZhBf6-w",
+      authDomain: "arbtrack-database.firebaseapp.com",
+      projectId: "arbtrack-database",
+      storageBucket: "arbtrack-database.appspot.com",
+      messagingSenderId: "396149381897",
+      appId: "1:396149381897:web:8eb6db05d3c5faaa0651d8",
+      measurementId: "G-P3J670QLKC"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  <div class="tabs">
+    <button class="tablink" onclick="openTab(event, 'dashboard')">Dashboard</button>
+    <button class="tablink" onclick="openTab(event, 'technical')">Área Técnica</button>
+  <div id="totalPNL">Lucro Total: R$ 0.00</div>
+  </div>
+  <div id="dashboard" class="tabcontent">
+    <button id="toggleButton" onclick="toggleDashboardContent()">Manual</button>
+    <button id="addCodeButton" onclick="showCodePopup()">Cód.</button>
+    <div id="codePopup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closeCodePopup()">&times;</span>
+        <textarea id="codeInput" placeholder="Insira o código aqui..."></textarea>
+        <button onclick="submitCode()">Enviar</button>
+        <button onclick="closeCodePopup()">Fechar</button>
+      </div>
+    </div>
+    
+    <div id="newbet" style="display: none;">
+      
+      <label for="casa1">Casa 1:</label>
+      <select id="casa1">
+        <option value="">Selecione uma casa</option>
+        <!-- Opções das casas serão adicionadas dinamicamente via JavaScript -->
+      </select>
+      <label for="valor1">Valor 1:</label>
+      <input type="number" id="valor1">
+      <label for="odd1">Odd 1:</label>
+      <input type="number" id="odd1">
+      <br>
+      <label for="casa2">Casa 2:</label>
+      <select id="casa2">
+        <option value="">Selecione uma casa</option>
+        <!-- Opções das casas serão adicionadas dinamicamente via JavaScript -->
+      </select>
+      <label for="valor2">Valor 2:</label>
+      <input type="number" id="valor2">
+      <label for="odd2">Odd 2:</label>
+      <input type="number" id="odd2">
+      <br>
+      <label for="partida">Partida:</label>
+      <input type="text" id="partida">
+      <label for="data">Data e Hora:</label>
+      <input type="datetime-local" id="data">
+      <br>
+      <button onclick="addBet()">Adicionar</button>
+    </div>
+    <h3>DASHBOARD</h3>
+    <div class="tab-container">
+      <label for="filter-pendente" class="tab active">Pendente</label>
+      <label for="filter-resolvido" class="tab">Resolvido</label>
+      <label for="filter-todos" class="tab">Todos</label>
+  </div>
+  
+  <input type="radio" name="status-filter" value="pendente" id="filter-pendente" checked onclick="filterByStatus()">
+  <input type="radio" name="status-filter" value="resolvido" id="filter-resolvido" onclick="filterByStatus()">
+  <input type="radio" name="status-filter" value="todos" id="filter-todos" onclick="filterByStatus()">
+    <table id="dashboard-table">
+      <thead>
+        <tr>
+          <th>CASA1</th>
+          <th>VALOR1</th>
+          <th>ODD1</th>
+          <th>CASA2</th>
+          <th>VALOR2</th>
+          <th>ODD2</th>
+          <th>VENCEDOR</th>
+          <th>PARTIDA</th>
+          <th>DATA</th>
+          <th>RESULT1</th>
+          <th>RESULT2</th>
+          <th>PNL</th>
+          <th>AÇÃO</th> <!-- Célula para o botão Excluir -->
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Linhas da tabela serão adicionadas dinamicamente via JavaScript -->
+      </tbody>
+    </table>
+  </div>
+  <div id="technical" class="tabcontent">
+    <h3>ÁREA TÉCNICA</h3>
+    <input type="text" id="newHouse" placeholder="Nome da Casa">
+    <button onclick="addHouse()">Adicionar Casa</button>
+    <div id="balance">     
+      <h4>Saldo por Casa:</h4>
+      <ul id="saldoList"></ul>
+
+      <h2>Indicadores Técnicos</h2>
+      <p id="saldoTotal">Saldo Total: R$ 0.00</p>
+      <p id="lucroLiquido">Lucro Líquido: R$ 0.00</p>
+      <p id="porcentagemLucro">Porcentagem de Lucro: 0.00%</p>
+
+    </div>
+    <!-- Outros elementos para análise técnica -->
+  </div>
+  <div id="sidebar" style="transform: translateX(100%);">
+    <!-- Conteúdo do sidebar -->
+    <br>
+    <br>
+    <select id="selectedHouse">
+      <option value="">Selecione uma casa</option>
+      <!-- Opções das casas serão adicionadas dinamicamente via JavaScript -->
+    </select>
+    <input class="depositsaque" type="number" id="depositAmount" placeholder="Valor do Depósito">
+    <button class="depositsaque" onclick="deposit()">Depositar</button>
+    <p>
+      <input class="depositsaque" type="number" id="withdrawAmount" placeholder="Valor do Saque">
+      <button onclick="withdraw()">Sacar</button>
+  </div>
+  <!-- Botão para ocultar o sidebar -->
+  <button id="hideSidebarButton" onclick="toggleSidebar()">
+    <img id="icon" src="icons/money-bag.png" class="icon" width="20" height="20">
+    <i id="sidebarIcon" style="font-size: 24px;"></i>
+  </button>
+  <!-- Botão para exibir o sidebar (visível quando o sidebar está oculto) -->
+  <script src="script.js"></script>
+  <script>
+    function insertData() {
+      var code = document.getElementById('code').value;
+      google.script.run.insertFormattedData(code);
+      google.script.host.close();
+    }
+  </script>
+</body>
+</html>
