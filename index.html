@@ -8,7 +8,11 @@
   <link rel="stylesheet" href="assets/styles/stylesdb.css">
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+  <script src="assets/scripts/firestore.js"></script>
   <script src="assets/scripts/scriptlogin.js"></script>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon_io/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon_io/favicon-32x32.png">
 </head>
 <div class="tabs">
     <button class="tablink" onclick="openTab(event, 'dashboard')">Dashboard</button>
@@ -57,15 +61,15 @@
       <button onclick="addBet()">Adicionar</button>
     </div>
     <h3>DASHBOARD</h3>
-    <div class="tab-container">
-      <label for="filter-pendente" class="tab active">Pendente</label>
-      <label for="filter-resolvido" class="tab">Resolvido</label>
-      <label for="filter-todos" class="tab">Todos</label>
+      <div class="tab-container">
+    <label for="filter-pendente" class="tab active" onclick="activateRadioButton('filter-pendente')">Pendente</label>
+    <label for="filter-resolvido" class="tab" onclick="activateRadioButton('filter-resolvido')">Resolvido</label>
+    <label for="filter-todos" class="tab" onclick="activateRadioButton('filter-todos')">Todos</label>
   </div>
-  
-  <input type="radio" name="status-filter" value="pendente" id="filter-pendente" checked onclick="filterByStatus()">
-  <input type="radio" name="status-filter" value="resolvido" id="filter-resolvido" onclick="filterByStatus()">
-  <input type="radio" name="status-filter" value="todos" id="filter-todos" onclick="filterByStatus()">
+
+  <input type="radio" name="status-filter" value="pendente" id="filter-pendente" checked>
+  <input type="radio" name="status-filter" value="resolvido" id="filter-resolvido">
+  <input type="radio" name="status-filter" value="todos" id="filter-todos">
     <table id="dashboard-table">
       <thead>
         <tr>
@@ -91,7 +95,6 @@
     </table>
   </div>
   <div id="technical" class="tabcontent">
-    <h3>ÁREA TÉCNICA</h3>
     <input type="text" id="newHouse" placeholder="Nome da Casa">
     <button onclick="addHouse()">Adicionar Casa</button>
     <div id="balance">     
@@ -118,7 +121,7 @@
     <button class="depositsaque" onclick="deposit()">Depositar</button>
     <p>
       <input class="depositsaque" type="number" id="withdrawAmount" placeholder="Valor do Saque">
-      <button onclick="withdraw()">Sacar</button>
+      <button class="depositsaque" onclick="withdraw()">Sacar</button>
       <disconnect onclick="logout()">Desconectar</disconnect><p><p><p></p>  </div>
   <!-- Botão para ocultar o sidebar -->
   <button id="hideSidebarButton" onclick="toggleSidebar()">
@@ -128,7 +131,8 @@
   <!-- Botão para exibir o sidebar (visível quando o sidebar está oculto) -->
   <script src="assets/scripts/scriptdb.js"></script>
   <script>
-checkAuth();
+    // Checar o login
+    checkAuth();
 </script>
   <script>
     function insertData() {

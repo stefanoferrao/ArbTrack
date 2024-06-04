@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login e Registro</title>
     <link rel="stylesheet" href="assets/styles/styleslogin.css">
+    <script src="assets/scripts/firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon_io/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon_io/favicon-32x32.png">
 </head>
 <body>
     <div> <img id="logo" src="assets/images/logologin.png" class="logo" width="500">
@@ -14,7 +18,7 @@
         <div id="login-container" class="auth-container">
             <h1>Login</h1>
             <input type="email" id="login-email" placeholder="Email">
-            <input type="password" id="login-password" placeholder="Password">
+            <input type="password" id="login-password" placeholder="Senha">
             <button onclick="loginWithEmail()">Login</button>
             <button onclick="loginWithGoogle()">Login com Google</button>
             <p>Não tem uma conta? <a href="#" onclick="showRegister()">Registrar</a></p>
@@ -27,10 +31,13 @@
             <p>Já tem uma conta? <a href="#" onclick="showLogin()">Login</a></p>
         </div>
     </div>
+    <script src="assets/scripts/scriptlogin.js"></script>
     <script>
-        // Verifica se o usuário já está autenticado ao carregar a página de login
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+        // Checar o login
         checkAuth();
     </script>
-    <script src="assets/scripts/scriptlogin.js"></script>
 </body>
 </html>
