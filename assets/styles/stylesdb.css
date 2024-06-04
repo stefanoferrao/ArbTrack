@@ -1,0 +1,377 @@
+/* Estilos gerais */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.tabs {
+  overflow: hidden;
+  border-bottom: 1px solid #ccc;
+}
+
+.tablink {
+  background-color: #2d2d2d;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: background-color 0.3s;
+  font-size: large;
+}
+
+.tablink:hover {
+  background-color: #3d3d3d;
+}
+
+
+
+.depositsaque {
+  text-align: center;
+  align-items: center;
+}
+
+/* Estilos específicos para a tabela */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  color: #fff;
+
+}
+
+th,
+td {
+  border: 1px solid #4d4d4d;
+  user-select: none;
+  text-align: center;
+}
+
+th {
+  background-color: #2d2d2d;
+}
+
+tr:nth-child(even) {
+  background-color: #3d3d3d;
+}
+
+tr:hover {
+  background-color: #4d4d4d;
+}
+
+/* Estilos específicos para a guia Área Técnica */
+#technical {
+  background-color: #1e1e1e;
+}
+
+disconnect {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  /* para centralizar horizontalmente */
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  background-color: #5f32a2;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+disconnect:hover {
+  background-color: #8954d8;
+}
+
+button {
+  background-color: #5f32a2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #8954d8;
+}
+
+#totalPNL {
+  background-color: #4CAF50;
+  font-size: large;
+  color: white;
+  padding: 14px;
+  border-radius: 0px;
+  text-align: center;
+  min-width: 150px;
+  display: flex;
+  /* Torna o elemento um contêiner flexível */
+  justify-content: center;
+  /* Centraliza o conteúdo horizontalmente */
+  align-items: center;
+  /* Centraliza o conteúdo verticalmente */
+}
+
+.stripe {
+  width: 100%;
+  height: 5px;
+  background-color: #000;
+}
+
+.icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Estilos para o popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup-content {
+  background-color: #2d2d2d;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  color: #000;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+}
+
+.tab-container {
+  display: flex;
+  border-bottom: 1px solid #aaa;
+  margin-bottom: 10px;
+  font-size: small;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #2d2d2d;
+  border-bottom: none;
+  background-color: #3d3d3d;
+  margin-right: 5px;
+  user-select: none;
+}
+
+.tab.active {
+  background-color: #2d2d2d;
+  border-top: 4px solid #5f32a2;
+  user-select: none;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+/* Estilo para o sidebar */
+#sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #2d2d2d;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transform: translateX(100%);
+  transition: transform 0.7s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+/* Mostrar o sidebar quando ativo */
+#sidebar.active {
+  transform: translateX(0);
+}
+
+/* Estilo dos inputs e botões */
+.depositsaque {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#selectedHouse {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+/* Estilo para o botão de ocultar sidebar */
+#hideSidebarButton {
+  position: fixed;
+  right: 4px;
+  /* Posiciona o botão à direita */
+  top: 4px;
+  /* Posiciona o botão no topo */
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  /* Garante que o botão esteja acima de outros elementos */
+  border-radius: 5px;
+}
+
+#hideSidebarButton img {
+  filter: invert(100%);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  font-size: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+div#technical.tabcontent {
+  justify-content: space-between;
+  display: flex;
+  float: left;
+  align-self: auto;
+}
+
+#technical {
+  width: 100%;
+  background-color: #2d2d2d;
+  color: #fff;
+}
+
+#newHouse {
+  font-size: large;
+  display: flex;
+  background-color: #3d3d3d;
+  color: #fff;
+  border: none;
+  padding: 0px;
+  width: 100%;
+  height: 40px;
+  float: inline-end;
+}
+
+#technical button {
+  background-color: #5f32a2;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100%;
+  border: #000;
+}
+
+#technical saldolist {
+  background-color: #5f32a2;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100%;
+  border: #000;
+}
+
+div#geral {
+  display: block;
+  background-color: #2d2d2d;
+  color: #fff;
+}
+
+li {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+li:hover {
+  background-color: #4d4d4d;
+}
+
+#saldohouse {
+  padding: 20px 20px 20px 20px;
+  background-color: #3d3d3d;
+}
+
+#balance {
+  background-color: #3d3d3d;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#balance button {
+  background-color: #5f32a2;
+  color: #fff;
+  cursor: pointer;
+  width: 80px;
+  border: 20px;
+  float: right;
+  padding: 0px;
+  border-top: 10px;
+}
+
+#geral h2 {
+  font-size: large;
+  border-bottom: 1px solid #aaa;
+  color: #8954d8;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+#technical h2 {
+  font-size: large;
+  border-bottom: 1px solid #aaa;
+  color: #8954d8;
+}
+
+#technical h3 {
+  font-size: small;
+}
+
+#technical h4 {
+  font-size: large;
+  border-bottom: 1px solid #aaa;
+  color: #8954d8;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
