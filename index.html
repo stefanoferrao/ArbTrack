@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <title>ArbTrack</title>
+  <link rel="stylesheet" href="assets/styles/stylesdb.css">
+  <link rel="stylesheet" href="/assets/styles/graficos.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert@10">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script>
+  <script src="assets/scripts/firestore.js"></script>
+  <script src="assets/scripts/scriptlogin.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/themes/dark-unica.js"></script>
+  <script src="/assets/scripts/graficos.js"></script>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon_io/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon_io/favicon-32x32.png">
+</head>
+<div class="tabs">
+  <button class="tablink" onclick="openTab(event, 'dashboard')">Dashboard</button>
+  <button class="tablink" onclick="openTab(event, 'technical')">Área Técnica</button>
+  <button class="tablink" onclick="openTab(event, 'graficos')">Indicadores</button>
+  <div id="totalPNL">Lucro Total: R$ 0.00</div>
+</div>
+<div id="dashboard" class="tabcontent">
+  <button id="toggleButton" onclick="toggleDashboardContent()">Manual</button>
+  <button id="addCodeButton" onclick="showCodePopup()">Cód.</button>
+  <div id="codePopup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeCodePopup()">&times;</span>
+      <textarea id="codeInput" placeholder="Insira o código aqui..."></textarea>
+      <button onclick="submitCode()">Enviar</button>
+      <button onclick="closeCodePopup()">Fechar</button>
+    </div>
+  </div>
+
+  <div id="newbet" style="display: none;">
+
+    <label for="casa1">Casa 1:</label>
+    <select id="casa1">
+      <option value="">Selecione uma casa</option>
+      <!-- Opções das casas serão adicionadas dinamicamente via JavaScript -->
+    </select>
+    <label for="valor1">Valor 1:</label>
+    <input type="number" id="valor1">
+    <label for="odd1">Odd 1:</label>
+    <input type="number" id="odd1">
+    <br>
+    <label for="casa2">Casa 2:</label>
+    <select id="casa2">
+      <option value="">Selecione uma casa</option>
+      <!-- Opções das casas serão adicionadas dinamicamente via JavaScript -->
+    </select>
+    <label for="valor2">Valor 2:</label>
+    <input type="number" id="valor2">
+    <label for="odd2">Odd 2:</label>
+    <input type="number" id="odd2">
+    <br>
+    <label for="partida">Partida:</label>
+    <input type="text" id="partida">
+    <label for="data">Data e Hora:</label>
+    <input type="datetime-local" id="data">
+    <br>
+    <button onclick="addBet()">Adicionar</button>
+  </div>
+  <P></P>
+  <div class="tab-container">
+    <label for="filter-pendente" class="tab active" onclick="activateRadioButton('filter-pendente')">Pendente</label>
+    <label for="filter-resolvido" class="tab" onclick="activateRadioButton('filter-resolvido')">Resolvido</label>
+    <label for="filter-todos" class="tab" onclick="activateRadioButton('filter-todos')">Todos</label>
+  </div>
+
+  <input type="radio" name="status-filter" value="pendente" id="filter-pendente" checked>
+  <input type="radio" name="status-filter" value="resolvido" id="filter-resolvido">
+  <input type="radio" name="status-filter" value="todos" id="filter-todos">
+  <table id="dashboard-table">
+    <thead>
+      <tr>
+        <th>CASA1</th>
+        <th>VALOR1</th>
+        <th>ODD1</th>
+        <th>CASA2</th>
+        <th>VALOR2</th>
+        <th>ODD2</th>
+        <th>VENCEDOR</th>
+        <th>PARTIDA</th>
+        <th>DATA</th>
+        <th>RESULT1</th>
+        <th>RESULT2</th>
+        <th>PNL</th>
+        <th>AÇÃO</th> <!-- Célula para o botão Excluir -->
+        <th>STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Linhas da tabela serão adicionadas dinamicamente via JavaScript -->
+    </tbody>
+  </table>
+</div>
+
+<div id="technical" class="tabcontent">
+  <input type="text" id="newHouse" placeholder="Insira o nome igual o da plataforma ex: Bet365 (FAST)">
+  <button onclick="addHouse()">Adicionar Casa</button>
+  <div id="balance">
+    <h4>Saldo por Casa:</h4>
+    <ul id="saldoList"></ul>
+    <h2>Dados Técnicos</h2>
+    <ul id="dadostecnicos">
+    <li id="saldoTotal">Saldo Total: R$ 0.00</li>
+    <li id="lucroLiquido">Lucro: R$ 0.00</li>
+    <li id="porcentagemLucro">Lucro em %: 0.00%</li>
+    <li id="totalApostasPendentes">Valor total retido em Bet: 0</li>
+    </ul>
+  </div>
+</div>
+
+<div id="graficos" class="tabcontent">
+  <div id="chartContainer">
+    <div id="myChart"></div>
+    <div id="pieChart"></div>
+  </div>
+
+</div>
+<div id="sidebar" style="transform: translateX(100%);">
+  <!-- Conteúdo do sidebar -->
+  <br>
+  <br>
+  <select id="selectedHouse">
+    <option value="">Selecione uma casa</option>
+    <!-- Opções das casas serão adicionadas dinamicamente via JavaScript -->
+  </select>
+  <input class="depositsaque" type="number" id="depositAmount" placeholder="Valor do Depósito">
+  <button class="depositsaque" onclick="deposit()">Depositar</button>
+  <p>
+    <input class="depositsaque" type="number" id="withdrawAmount" placeholder="Valor do Saque">
+    <button class="depositsaque" onclick="withdraw()">Sacar</button>
+    <disconnect onclick="logout()">Desconectar</disconnect>
+  <p>
+  <p>
+  <p></p>
+</div>
+<!-- Botão para ocultar o sidebar -->
+<button id="hideSidebarButton" onclick="toggleSidebar()">
+  <img id="icon" src="assets/images/money-bag.png" class="icon" width="20" height="20" style="filter: invert(100%);">
+  <i id="sidebarIcon" style="font-size: 24px;"></i>
+</button>
+<!-- Botão para exibir o sidebar (visível quando o sidebar está oculto) -->
+<script src="assets/scripts/scriptdb.js"></script>
+<script>
+  // Checar o login
+  checkAuth();
+  updateHouseDropdowns(); // Atualiza as listas suspensas
+  updateSaldoList(); // Atualiza a lista de saldos
+</script>
+<script>
+  firebase.initializeApp(firebaseConfig);
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      // Usuário está autenticado, você pode redirecioná-lo para uma página segura, por exemplo.
+      renderChart();
+    } else {
+      // Usuário não está autenticado, você pode redirecioná-lo para a página de login.
+      console.log("Usuário não está autenticado");
+    }
+  });
+
+</script>
+
+<script>
+  function insertData() {
+    var code = document.getElementById('code').value;
+    google.script.run.insertFormattedData(code);
+    google.script.host.close();
+  }
+</script>
+</body>
+
+</html>
